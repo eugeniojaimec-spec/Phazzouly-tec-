@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pházzoúly-Tec | Criação de Sites & Soluções Digitais</title>
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0072ff;
+            --primary-light: #00c6ff;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gray: #64748b;
+            --sidebar-width: 280px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER LATERAL (LADO ESQUERDO) --- */
+        aside.sidebar {
+            width: var(--sidebar-width);
+            background: var(--white);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 20px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .sidebar-brand h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-brand span {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .sidebar-menu a i {
+            font-size: 1.1rem;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .whatsapp-btn-sidebar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #25d366;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn-sidebar:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        /* Checkbox oculto para abrir o menu em telemóveis */
+        #menu-toggle {
+            display: none;
+        }
+
+        .mobile-toggle-label {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            z-index: 1100;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* --- CORPO PRINCIPAL (LADO DIREITO) --- */
+        main.main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 40px;
+            max-width: calc(100% - var(--sidebar-width));
+        }
+
+        /* Seção de Apresentação / Atração de Clientes */
+        .store-welcome {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 114, 255, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .store-welcome h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .store-welcome p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 800px;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .welcome-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            background: white;
+            color: var(--primary);
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .btn-main:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* --- VITRINE / MODELOS DE EXEMPLO (SUBSTITUTO DE SLIDER EM CSS PURO) --- */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .models-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .model-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #e2e8f0;
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 114, 255, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .model-img-box {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .model-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .model-card:hover .model-img-box img {
+            transform: scale(1.05);
+        }
+
+        .model-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .model-body {
+            padding: 20px;
+        }
+
+        .model-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .model-body p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .model-footer {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .model-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        .btn-buy {
+            background: #25d366;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .btn-buy:hover {
+            background: #20ba5a;
+        }
+
+        /* --- BENEFÍCIOS / PORQUE ESCOLHER --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .benefit-card i {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .benefit-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* --- RODAPÉ --- */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #ddd;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* --- RESPONSIVIDADE PARA TELEMÓVEIS --- */
+        @media (max-width: 992px) {
+            aside.sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            #menu-toggle:checked ~ aside.sidebar {
+                transform: translateX(0);
+            }
+
+            main.main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 25px 15px;
+            }
+
+            .mobile-toggle-label {
+                display: block;
+            }
+
+            .store-welcome h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Controlo Mobile -->
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="mobile-toggle-label" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+    </label>
+
+    <!-- HEADER LATERAL (ESQUERDA) -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h1>Pházzoúly-Tec</h1>
+            <span>Criação de Sites & Sistemas</span>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-laptop-code"></i> Início / Vitrine</a></li>
+            <li><a href="#modelos"><i class="fas fa-th-large"></i> Modelos de Sites</a></li>
+            <li><a href="#beneficios"><i class="fas fa-star"></i> Vantagens</a></li>
+            <li><a href="#contacto"><i class="fas fa-headset"></i> Contacto Direto</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="https://wa.me/258868313040?text=Olá%20Pházzoúly-Tec,%20estou%20a%20visitar%20o%20site%20e%20gostaria%20de%20encomendar%20um%20site." target="_blank" class="whatsapp-btn-sidebar">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+            <p style="font-size: 0.75rem; color: #888; margin-top: 10px;">+258 86 831 3040</p>
+        </div>
+    </aside>
+
+    <!-- CORPO PRINCIPAL (DIREITA) -->
+    <main class="main-content">
+
+        <!-- Descrição de Alto Impacto para Atração de Clientes -->
+        <section class="store-welcome">
+            <div class="store-badge"><i class="fas fa-rocket"></i> Impulsione o seu Negócio Digital</div>
+            <h2>Transforme Visitantes em Clientes Fiéis com um Site Profissional!</h2>
+            <p>Na <strong>Pházzoúly-Tec</strong>, criamos soluções web modernas, rápidas e focadas em conversão. Quer tenha uma loja física, preste serviços ou precise de uma plataforma automatizada, entregamos o seu site pronto a faturar. Destaque-se da concorrência com um design limpo, responsivo e integrado diretamente ao seu WhatsApp!</p>
+            <div class="welcome-actions">
+                <a href="https://wa.me/258868313040?text=Olá,%20quero%20encomendar%20um%20site%20profissional%20com%20a%20Pházzoúly-Tec." target="_blank" class="btn-main"><i class="fab fa-whatsapp"></i> Encomendar Meu Site Agora</a>
+                <a href="#modelos" class="btn-outline">Ver Modelos Disponíveis</a>
+            </div>
+        </section>
+
+        <!-- MODELOS DE EXEMPLO PARA INDUÇÃO DE COMPRAS -->
+        <h2 class="section-title" id="modelos"><i class="fas fa-th-large"></i> Modelos de Exemplo para Inspiração</h2>
+        <p style="color: var(--gray); margin-bottom: 25px; margin-top: -15px;">Escolha um modelo abaixo ou peça um projeto 100% personalizado para o seu ramo de atuação:</p>
+        
+        <div class="models-showcase">
+            <!-- Modelo 1 -->
+            <div class="model-card">
+                <div class="model-img-box">
+                    <span class="model-tag">Lojas & Negócios</span>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Site para Lojas">
+                </div>
+                <div class="model-body">
+                    <h3>Loja Virtual / Catálogo</h3>
+                    <p>Ideal para comércios, venda de acessórios, roupas ou eletrónicos com pedidos diretos para o WhatsApp.</p>
+                </div>
+                <div class="model-footer">
+                    <span class="model-price">Alta Conversão</span>
+                    <a href="https://wa.me/258868313040?text=Olá,%20gostaria%20de%20um%20site%20no%20estilo%20Loja%20Virtual." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Quero Este</a>
+                </div>
+            </div>
+
+            <!-- Modelo 2 -->
+            <div class="model-card">
+                <div class="model-img-box">
+                    <span class="model-tag">Serviços & Empresas</span>
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Site Corporativo">
+                </div>
+                <div class="model-body">
+                    <h3>Site Institucional / Imobiliárias</h3>
+                    <p>Perfeito para prestadores de serviços, imobiliárias e consultorias apresentarem os seus trabalhos com elegância.</p>
+                </div>
+                <div class="model-footer">
+                    <span class="model-price">Profissional</span>
+                    <a href="https://wa.me/258868313040?text=Olá,%20gostaria%20de%20um%20site%20no%20estilo%20Institucional." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Quero Este</a>
+                </div>
+            </div>
+
+            <!-- Modelo 3 -->
+            <div class="model-card">
+                <div class="model-img-box">
+                    <span class="model-tag">Landing Page</span>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Landing Page de Alta Conversão">
+                </div>
+                <div class="model-body">
+                    <h3>Landing Page de Vendas</h3>
+                    <p>Uma página única focada em atrair tráfego e converter visitantes instantaneamente numa oferta específica.</p>
+                </div>
+                <div class="model-footer">
+                    <span class="model-price">Foco em Vendas</span>
+                    <a href="https://wa.me/258868313040?text=Olá,%20gostaria%20de%20uma%20Landing%20Page%20de%20Vendas." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Quero Este</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BENEFÍCIOS -->
+        <h2 class="section-title" id="beneficios"><i class="fas fa-star"></i> Porque Escolher a Pházzoúly-Tec?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-bolt"></i>
+                <h4>Entrega Rápida</h4>
+                <p>Colocamos o seu negócio online no menor tempo possível sem perder a qualidade.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>100% Responsivo</h4>
+                <p>O seu site vai adaptar-se perfeitamente a telemóveis, tablets e computadores.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-comments-dollar"></i>
+                <h4>Directo ao WhatsApp</h4>
+                <p>Facilitamos o contacto do cliente final consigo para fechar negócios rapidamente.</p>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <footer id="contacto">
+            <p>&copy; 2026 Pházzoúly-Tec. Todos os direitos reservados. | Contacto WhatsApp: +258 86 831 3040</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
